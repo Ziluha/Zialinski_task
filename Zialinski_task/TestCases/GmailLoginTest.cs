@@ -17,36 +17,34 @@ namespace Zialinski_task.TestCases
     [TestFixture]
     public class GmailLoginTest : BaseTest
     {
-        public GmailLoginTest() : base(Browser.Name.Chrome)
-        {
-        }
+        public GmailLoginTest() : base(Browser.Name.Chrome) { }
 
         [Test]
         public void LoginWithValidData()
         {
             test = extent.CreateTest("Login With Valid Data");
-            Page.GmailLogin.InputLogin("test.task.zel@gmail.com");
-            test.Log(test.Status, "Login inputted");
+            Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
+            test.Log(Status.Pass, "Login is inputted");
             Page.GmailLogin.SubmitLogin();
-            test.Log(test.Status, "Login Submitted");
-            Page.GmailLogin.InputPassword("Test1234Test", Driver);
-            test.Log(test.Status, "Password inputted");
+            test.Log(Status.Pass, "Login is submitted");
+            Page.GmailLogin.InputPassword(ConfigurationManager.AppSettings["ValidPassword"], Driver);
+            test.Log(Status.Pass, "Password is inputted");
             Page.GmailLogin.SubmitPassword();
-            test.Log(test.Status, "Password submitted");
+            test.Log(Status.Pass, "Password is submitted");
         }
 
         [Test]
         public void LoginWithInvalidData()
         {
             test = extent.CreateTest("Login With Invalid Data");
-            Page.GmailLogin.InputLogin("test.task.zel@gmmmail.com");
-            test.Log(test.Status, "Login inputted");
+            Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
+            test.Log(Status.Pass, "Login is inputted");
             Page.GmailLogin.SubmitLogin();
-            test.Log(test.Status, "Login Submitted");
-            Page.GmailLogin.InputPassword("123123123", Driver);
-            test.Log(test.Status, "Password inputted");
+            test.Log(Status.Pass, "Login is submitted");
+            Page.GmailLogin.InputPassword(ConfigurationManager.AppSettings["InvalidPassword"], Driver);
+            test.Log(Status.Pass, "Password is inputted");
             Page.GmailLogin.SubmitPassword();
-            test.Log(test.Status, "Password submitted");
+            test.Log(Status.Pass, "Password is submitted");
         }
     }
 }

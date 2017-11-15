@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium.Support.PageObjects;
+﻿using System;
+using OpenQA.Selenium.Support.PageObjects;
 using Zialinski_task.PageObjects.GmailLogin;
+using Zialinski_task.PageObjects.GmailMail;
 using Zialinski_task.WrapperFactory;
 
 namespace Zialinski_task.PageObjects
@@ -9,10 +11,13 @@ namespace Zialinski_task.PageObjects
         private static T GetPage<T>() where T : new()
         {
             var page = new T();
+            BrowserFactory.Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
             PageFactory.InitElements(BrowserFactory.Driver, page);
             return page;
         }
 
         public static GmailLoginPage GmailLogin => GetPage<GmailLoginPage>();
+        public static GmailInboxPage GmailInbox => GetPage<GmailInboxPage>();
+        public static GmailDraftsPage GmailDrafts => GetPage<GmailDraftsPage>();
     }
 }
