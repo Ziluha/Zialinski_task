@@ -30,6 +30,7 @@ build/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
+*.png
 *_i.c
 *_p.c
 *.ilk

@@ -20,7 +20,7 @@ namespace Zialinski_task.PageObjects.GmailMail
         [FindsBy(How = How.XPath, Using = "//div[@role='main']//span[@class='bog']")]
         private IList<IWebElement> DraftSubjectsList { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//div[@role='main']//div[@role='checkbox']")]
+        [FindsBy(How = How.XPath, Using = "//div[@role='main']//div[@role='checkbox']/div")]
         private IList<IWebElement> DraftCheckboxesList { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@role='button' and @act='16']/div")]
@@ -35,6 +35,8 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         public void ChooseFirstDraft(int draftNumber, IWebDriver driver)
         {
+            int i = DraftCheckboxesList.Count();
+            Console.WriteLine(i);
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementToBeClickable(DraftCheckboxesList.ElementAt(draftNumber)));
             DraftCheckboxesList.ElementAt(draftNumber).ClickElement(draftCheckBoxName);
