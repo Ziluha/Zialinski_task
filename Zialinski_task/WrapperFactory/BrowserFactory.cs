@@ -16,7 +16,7 @@ namespace Zialinski_task.WrapperFactory
 
         public static BrowserFactory getInstance()
         {
-            if (instance == null)
+            if(instance == null)
                 instance = new BrowserFactory();
             return instance;
         }

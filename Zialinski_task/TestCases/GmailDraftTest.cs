@@ -9,6 +9,7 @@ using AventStack.ExtentReports;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
+using Zialinski_task.PageObjects.GmailMail;
 using Zialinski_task.TestSettings;
 
 namespace Zialinski_task.TestCases
@@ -41,11 +42,11 @@ namespace Zialinski_task.TestCases
             test.Log(Status.Pass, "Compose Button is clicked");
             Page.GmailInbox.InputMessageSubject(ConfigurationManager.AppSettings["TextSample"], Driver);
             test.Log(Status.Pass, "Message Subject is inputted");
-            Page.GmailInbox.WaitForSavedLable(Driver);
+            Assert.True(Page.GmailInbox.WaitForSavedLable(Driver), "Saved Lable is not presented");
             test.Log(Status.Pass, "Saved Lable is presented");
-            Page.GmailInbox.GoToDrafts(Driver);
+            Page.GmailInbox.GoToDrafts();
             test.Log(Status.Pass, "Drafts Link is opened");
-            Assert.True(Page.GmailDrafts.IsDraftAdded(ConfigurationManager.AppSettings["TextSample"]),
+            Assert.True(Page.GmailDrafts.IsDraftAdded(ConfigurationManager.AppSettings["TextSample"], Driver),
                 "No message with this subject in drafts");
             test.Log(Status.Pass, "Message was added in drafts");
         }
@@ -55,9 +56,11 @@ namespace Zialinski_task.TestCases
         {
             int draftNumber = 3;
             test = extent.CreateTest("Delete Message From Drafts");
-            Page.GmailInbox.GoToDrafts(Driver);
+            Page.GmailInbox.GoToDrafts();
             test.Log(Status.Pass, "Drafts Link is opened");
-            Page.GmailDrafts.ChooseFirstDraft(draftNumber, Driver);
+            Assert.True(Page.GmailDrafts.IsDraftCheckboxAllowed(draftNumber, Driver),"Draft Checkbox is not allowed");
+            test.Log(Status.Pass, "Draft Checkbox is allowed");
+            Page.GmailDrafts.ChooseFirstDraft(draftNumber);
             test.Log(Status.Pass, "First Draft is choosen");
             Page.GmailDrafts.ClickDiscardDraftsButton(Driver);
             test.Log(Status.Pass, "Draft is discarded");

@@ -40,15 +40,22 @@ namespace Zialinski_task.PageObjects.GmailMail
             MessageSubjectBox.InputText(messageSubject, messageSubjectBoxName);
         }
 
-        public void WaitForSavedLable(IWebDriver driver)
+        public bool WaitForSavedLable(IWebDriver driver)
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementExists(By.XPath(savedLableXPath)));
+            try
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                wait.Until(ExpectedConditions.ElementExists(By.XPath(savedLableXPath)));
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
 
-        public void GoToDrafts(IWebDriver driver)
+        public void GoToDrafts()
         {
-            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
             DraftsLink.ClickElement(draftsLinkName);
         }
     }

@@ -19,27 +19,47 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         [FindsBy(How = How.XPath, Using = "//div[@role='main']//span[@class='bog']")]
         private IList<IWebElement> DraftSubjectsList { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//div[@role='main']//div[@role='checkbox']/div")]
-        private IList<IWebElement> DraftCheckboxesList { get; set; }
+        
+        [FindsBy(How = How.CssSelector, Using = "div[role=main] div[role=checkbox]>div")]
+        public IList<IWebElement> DraftCheckboxesList { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@role='button' and @act='16']/div")]
         private IWebElement DiscardDraftsButton { get; set; }
 
-        public bool IsDraftAdded(string messageSubject)
+        public bool IsDraftAdded(string messageSubject, IWebDriver driver)
         {
-            if (DraftSubjectsList != null && DraftSubjectsList.First().Text == messageSubject)
-                return true;
-            return false;
+            try
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                wait.Until(elemDisplayed => DraftSubjectsList.First().Displayed);
+                if (DraftSubjectsList != null && DraftSubjectsList.First().Text == messageSubject)
+                    return true;
+                return false;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
 
-        public void ChooseFirstDraft(int draftNumber, IWebDriver driver)
+        public bool IsDraftCheckboxAllowed(int draftNumber, IWebDriver driver)
         {
-            int i = DraftCheckboxesList.Count();
-            Console.WriteLine(i);
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(DraftCheckboxesList.ElementAt(draftNumber)));
-            DraftCheckboxesList.ElementAt(draftNumber).ClickElement(draftCheckBoxName);
+            try
+            {
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                wait.Until(elemDisplayed => DraftCheckboxesList[draftNumber].Displayed);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public void ChooseFirstDraft(int draftNumber)
+        {
+            IWebElement checkBox = DraftCheckboxesList[draftNumber];
+            checkBox.ClickElement(draftCheckBoxName);
         }
 
         public void ClickDiscardDraftsButton(IWebDriver driver)
