@@ -48,8 +48,8 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         public void GoToDrafts(IWebDriver driver)
         {
-            DraftsLink.ClickElement(draftsLinkName);
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
+            DraftsLink.ClickElement(draftsLinkName);
         }
     }
 }

@@ -16,7 +16,8 @@ namespace Zialinski_task.TestCases
     [TestFixture]
     public class GmailDraftTest : BaseTest
     {
-        public GmailDraftTest() : base(Browser.Name.Chrome) { }
+        private static readonly string _testName = "GmailDraftTest";
+        public GmailDraftTest() : base(Browser.Name.Chrome, _testName) { }
 
         [SetUp]
         public void SetUpAuth()
@@ -56,7 +57,7 @@ namespace Zialinski_task.TestCases
             test = extent.CreateTest("Delete Message From Drafts");
             Page.GmailInbox.GoToDrafts(Driver);
             test.Log(Status.Pass, "Drafts Link is opened");
-            Page.GmailDrafts.ChooseFirstDraft(draftNumber);
+            Page.GmailDrafts.ChooseFirstDraft(draftNumber, Driver);
             test.Log(Status.Pass, "First Draft is choosen");
             Page.GmailDrafts.ClickDiscardDraftsButton(Driver);
             test.Log(Status.Pass, "Draft is discarded");

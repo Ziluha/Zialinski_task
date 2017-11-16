@@ -67,6 +67,7 @@
     <Compile Include="PageObjects\GmailMail\GmailDraftsPage.cs" />
     <Compile Include="PageObjects\GmailMail\GmailInboxPage.cs" />
     <Compile Include="PageObjects\Page.cs" />
+    <Compile Include="Pathes\ProjectPathes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportSettings\BaseReport.cs" />
     <Compile Include="ReportSettings\GetScreenshot.cs" />

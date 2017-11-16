@@ -12,34 +12,49 @@ namespace Zialinski_task.TestSettings
     public class BaseTest : BaseReport
     {
         protected IWebDriver Driver { get; set; }
-        private Browser.Name browserName;
-        private BrowserFactory browserFactory;
+        private readonly Browser.Name _browserName;
+        private readonly BrowserFactory _browserFactory;
+        private readonly string _testName;
 
-        public BaseTest(Browser.Name _browserName)
+        public BaseTest(Browser.Name browserName, string testName)
         {
-            browserName = _browserName;
-            browserFactory = BrowserFactory.getInstance();
+            _browserName = browserName;
+            _browserFactory = BrowserFactory.getInstance();
+            _testName = testName;
         }
 
-        public void ChooseDriverInstance(Browser.Name _browserName)
+        public void ChooseDriverInstance(Browser.Name browserName)
         {
-            if (_browserName == Browser.Name.Chrome)
-                Driver = browserFactory.InitBrowser(Browser.Name.Chrome);
-            else if (_browserName == Browser.Name.Firefox)
-                Driver = browserFactory.InitBrowser(Browser.Name.Firefox);
+            if (browserName == Browser.Name.Chrome)
+                Driver = _browserFactory.InitBrowser(Browser.Name.Chrome);
+            else if (browserName == Browser.Name.Firefox)
+                Driver = _browserFactory.InitBrowser(Browser.Name.Firefox);
+        }
+
+        [OneTimeSetUp]
+        public void InitReport()
+        {
+            StartReport(_testName);
         }
 
         [SetUp]
         public void Init()
         {
-            ChooseDriverInstance(browserName);
+            ChooseDriverInstance(_browserName);
             DriverConfiguration.LoadApp(Driver, ConfigurationManager.AppSettings["GmailURL"]);
         }
 
         [TearDown]
         public void EndTest()
         {
-            browserFactory.CloseAllDrivers();
+            GetResult(_testName);
+            _browserFactory.CloseAllDrivers();
+        }
+
+        [OneTimeTearDown]
+        public void EndReport()
+        {
+            StopReport();
         }
     }
 }

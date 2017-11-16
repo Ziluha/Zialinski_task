@@ -33,8 +33,10 @@ namespace Zialinski_task.PageObjects.GmailMail
             return false;
         }
 
-        public void ChooseFirstDraft(int draftNumber)
+        public void ChooseFirstDraft(int draftNumber, IWebDriver driver)
         {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementToBeClickable(DraftCheckboxesList.ElementAt(draftNumber)));
             DraftCheckboxesList.ElementAt(draftNumber).ClickElement(draftCheckBoxName);
         }
 

@@ -17,7 +17,8 @@ namespace Zialinski_task.TestCases
     [TestFixture]
     public class GmailLoginTest : BaseTest
     {
-        public GmailLoginTest() : base(Browser.Name.Chrome) { }
+        private static readonly string _testName = "GmailLoginTest";
+        public GmailLoginTest() : base(Browser.Name.Chrome, _testName) { }
 
         [Test]
         public void LoginWithValidData()
