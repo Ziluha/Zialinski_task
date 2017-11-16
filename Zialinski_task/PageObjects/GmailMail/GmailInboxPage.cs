@@ -32,10 +32,8 @@ namespace Zialinski_task.PageObjects.GmailMail
             ComposeButton.ClickElement(composeButtonName);
         }
 
-        public void InputMessageSubject(string messageSubject, IWebDriver driver)
+        public void InputMessageSubject(string messageSubject)
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(MessageSubjectBox));
             MessageSubjectBox.ClickElement(messageSubjectBoxName);
             MessageSubjectBox.InputText(messageSubject, messageSubjectBoxName);
         }

@@ -14,40 +14,35 @@ namespace Zialinski_task.PageObjects.GmailMail
     public class GmailDraftsPage
     {
         private WebDriverWait wait;
+        private readonly string inDraftCheck = "Drafts";
         private readonly string draftCheckBoxName = "Draft Checkbox";
         private readonly string discardDraftsButtonName = "Discard Drafts Button";
+
+        [FindsBy(How = How.Id, Using = "gbqfif")]
+        private IWebElement SearchField { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@role='main']//span[@class='bog']")]
         private IList<IWebElement> DraftSubjectsList { get; set; }
         
         [FindsBy(How = How.CssSelector, Using = "div[role=main] div[role=checkbox]>div")]
-        public IList<IWebElement> DraftCheckboxesList { get; set; }
+        private IList<IWebElement> DraftCheckboxesList { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@role='button' and @act='16']/div")]
         private IWebElement DiscardDraftsButton { get; set; }
 
-        public bool IsDraftAdded(string messageSubject, IWebDriver driver)
+        public bool IsDraftAdded(string messageSubject)
         {
-            try
-            {
-                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                wait.Until(elemDisplayed => DraftSubjectsList.First().Displayed);
-                if (DraftSubjectsList != null && DraftSubjectsList.First().Text == messageSubject)
-                    return true;
-                return false;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+            if (DraftSubjectsList != null && DraftSubjectsList.First().Text == messageSubject)
+                return true;
+            return false;
         }
 
-        public bool IsDraftCheckboxAllowed(int draftNumber, IWebDriver driver)
+        public bool IsDraftPageOpened(IWebDriver driver)
         {
             try
             {
                 wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                wait.Until(elemDisplayed => DraftCheckboxesList[draftNumber].Displayed);
+                wait.Until(elemDisplayed => driver.Title.Contains(inDraftCheck));
                 return true;
             }
             catch (NoSuchElementException)
@@ -62,10 +57,8 @@ namespace Zialinski_task.PageObjects.GmailMail
             checkBox.ClickElement(draftCheckBoxName);
         }
 
-        public void ClickDiscardDraftsButton(IWebDriver driver)
+        public void ClickDiscardDraftsButton()
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(DiscardDraftsButton));
             DiscardDraftsButton.ClickElement(discardDraftsButtonName);
         }
     }

@@ -40,13 +40,15 @@ namespace Zialinski_task.TestCases
             test = extent.CreateTest("Add Message To Drafts");
             Page.GmailInbox.ClickComposeButton();
             test.Log(Status.Pass, "Compose Button is clicked");
-            Page.GmailInbox.InputMessageSubject(ConfigurationManager.AppSettings["TextSample"], Driver);
+            Page.GmailInbox.InputMessageSubject(ConfigurationManager.AppSettings["TextSample"]);
             test.Log(Status.Pass, "Message Subject is inputted");
             Assert.True(Page.GmailInbox.WaitForSavedLable(Driver), "Saved Lable is not presented");
             test.Log(Status.Pass, "Saved Lable is presented");
             Page.GmailInbox.GoToDrafts();
-            test.Log(Status.Pass, "Drafts Link is opened");
-            Assert.True(Page.GmailDrafts.IsDraftAdded(ConfigurationManager.AppSettings["TextSample"], Driver),
+            test.Log(Status.Pass, "Drafts Link is clicked");
+            Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver), "Draft Page is not opened");
+            test.Log(Status.Pass, "Draft Page is opened");
+            Assert.True(Page.GmailDrafts.IsDraftAdded(ConfigurationManager.AppSettings["TextSample"]),
                 "No message with this subject in drafts");
             test.Log(Status.Pass, "Message was added in drafts");
         }
@@ -57,12 +59,12 @@ namespace Zialinski_task.TestCases
             int draftNumber = 3;
             test = extent.CreateTest("Delete Message From Drafts");
             Page.GmailInbox.GoToDrafts();
-            test.Log(Status.Pass, "Drafts Link is opened");
-            Assert.True(Page.GmailDrafts.IsDraftCheckboxAllowed(draftNumber, Driver),"Draft Checkbox is not allowed");
-            test.Log(Status.Pass, "Draft Checkbox is allowed");
+            test.Log(Status.Pass, "Drafts Link is clicked");
+            Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver),"Draft Page is not opened");
+            test.Log(Status.Pass, "Draft Page is opened");
             Page.GmailDrafts.ChooseFirstDraft(draftNumber);
             test.Log(Status.Pass, "First Draft is choosen");
-            Page.GmailDrafts.ClickDiscardDraftsButton(Driver);
+            Page.GmailDrafts.ClickDiscardDraftsButton();
             test.Log(Status.Pass, "Draft is discarded");
         }
     }

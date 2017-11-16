@@ -21,6 +21,9 @@ namespace Zialinski_task.PageObjects.GmailLogin
         [FindsBy(How = How.Id, Using = "identifierNext")]
         private IWebElement SubmitLoginButton { get; set; }
 
+        [FindsBy(How = How.CssSelector, Using = "div[jsname=B34EJ]")]
+        private IWebElement LoginErrorLable { get; set; }
+
         [FindsBy(How = How.Name, Using = "password")]
         private IWebElement PasswordField { get; set; }
 
@@ -38,12 +41,27 @@ namespace Zialinski_task.PageObjects.GmailLogin
             SubmitLoginButton.ClickElement(submitLoginButtonName);
         }
 
-        public void InputPassword(string password, IWebDriver driverForWait)
+        public void InputPassword(string password, IWebDriver driver)
         {
-            wait = new WebDriverWait(driverForWait, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(PasswordField));
-            PasswordField.ClickElement(passwordFieldName);
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementToBeClickable(PasswordField))
+                .ClickElement(passwordFieldName);
             PasswordField.InputText(password, passwordFieldName);
+        }
+
+        public bool AreCredentialsWrong(IWebDriver driver)
+        {
+            try
+            {
+                if (LoginErrorLable.Displayed && LoginErrorLable.Text.Length != 0)
+                    return true;
+                return false;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+
         }
 
         public void SubmitPassword()

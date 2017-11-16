@@ -38,14 +38,24 @@ namespace Zialinski_task.TestCases
         public void LoginWithInvalidData()
         {
             test = extent.CreateTest("Login With Invalid Data");
-            Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
+            Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
             test.Log(Status.Pass, "Login is inputted");
             Page.GmailLogin.SubmitLogin();
-            test.Log(Status.Pass, "Login is submitted");
-            Page.GmailLogin.InputPassword(ConfigurationManager.AppSettings["InvalidPassword"], Driver);
-            test.Log(Status.Pass, "Password is inputted");
-            Page.GmailLogin.SubmitPassword();
-            test.Log(Status.Pass, "Password is submitted");
+            if (Page.GmailLogin.AreCredentialsWrong(Driver))
+                test.Log(Status.Pass, "Login is wrong");
+            else
+            {
+                test.Log(Status.Pass, "Login is submitted");
+                Page.GmailLogin.InputPassword(ConfigurationManager.AppSettings["InvalidPassword"],Driver);
+                test.Log(Status.Pass, "Password is inputted");
+                Page.GmailLogin.SubmitPassword();
+                if (Page.GmailLogin.AreCredentialsWrong(Driver))
+                    test.Log(Status.Pass, "Password is wrong");
+                else
+                {
+                    test.Log(Status.Pass, "Password is submitted");
+                }
+            }
         }
     }
 }
