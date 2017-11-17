@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -12,11 +8,11 @@ namespace Zialinski_task.PageObjects.GmailMail
 {
     public class GmailInboxPage
     {
-        private WebDriverWait wait;
-        private readonly string composeButtonName = "Compose Button";
-        private readonly string messageSubjectBoxName = "Message Subject Box";
-        private readonly string draftsLinkName = "Drafts Link";
-        private string savedLableXPath = "//td[contains(@class, 'HE')]//span[contains(text(), 'Saved')]";
+        private WebDriverWait _wait;
+        private const string ComposeButtonName = "Compose Button";
+        private const string MessageSubjectBoxName = "Message Subject Box";
+        private const string DraftsLinkName = "Drafts Link";
+        private const string SavedLableXPath = "//td[contains(@class, 'HE')]//span[contains(text(), 'Saved')]";
 
         [FindsBy(How = How.XPath, Using = "//div[@gh='cm' and @role='button']")]
         private IWebElement ComposeButton { get; set; }
@@ -29,21 +25,34 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         public void ClickComposeButton()
         {
-            ComposeButton.ClickElement(composeButtonName);
+            ComposeButton.ClickElement(ComposeButtonName);
         }
 
         public void InputMessageSubject(string messageSubject)
         {
-            MessageSubjectBox.ClickElement(messageSubjectBoxName);
-            MessageSubjectBox.InputText(messageSubject, messageSubjectBoxName);
+            MessageSubjectBox.ClickElement(MessageSubjectBoxName);
+            MessageSubjectBox.InputText(messageSubject, MessageSubjectBoxName);
         }
 
-        public bool WaitForSavedLable(IWebDriver driver)
+        public bool IsLoginSucceed(IWebDriver driver)
         {
             try
             {
-                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                wait.Until(ExpectedConditions.ElementExists(By.XPath(savedLableXPath)));
+                _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                return _wait.Until(elemDisplayed => ComposeButton.Displayed);
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public bool IsSavedLabelDisplayed(IWebDriver driver)
+        {
+            try
+            {
+                _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                _wait.Until(ExpectedConditions.ElementExists(By.XPath(SavedLableXPath)));
                 return true;
             }
             catch (NoSuchElementException)
@@ -54,7 +63,7 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         public void GoToDrafts()
         {
-            DraftsLink.ClickElement(draftsLinkName);
+            DraftsLink.ClickElement(DraftsLinkName);
         }
     }
 }

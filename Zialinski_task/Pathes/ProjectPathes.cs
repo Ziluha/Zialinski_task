@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zialinski_task.Pathes
 {
@@ -15,7 +11,7 @@ namespace Zialinski_task.Pathes
 
         public static string GetActualPath(string binPath)
         {
-            return binPath.Substring(0, binPath.LastIndexOf("bin"));
+            return binPath.Substring(0, binPath.LastIndexOf("bin", StringComparison.Ordinal));
         }
 
         public static string GetLocalUri(string actualPath)

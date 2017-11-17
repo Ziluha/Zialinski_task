@@ -6,25 +6,23 @@ using Zialinski_task.Enums;
 
 namespace Zialinski_task.WrapperFactory
 {
-    class BrowserFactory
+    internal class BrowserFactory
     {
-        private readonly IDictionary<Browser.Name, IWebDriver> drivers = new Dictionary<Browser.Name, IWebDriver>();
-        private static BrowserFactory instance;
-        private static IWebDriver driver;
+        private readonly IDictionary<Browser.Name, IWebDriver> _drivers = new Dictionary<Browser.Name, IWebDriver>();
+        private static BrowserFactory _instance;
+        private static IWebDriver _driver;
 
         private BrowserFactory() { }
 
         public static BrowserFactory getInstance()
         {
-            if(instance == null)
-                instance = new BrowserFactory();
-            return instance;
+            return _instance ?? (_instance = new BrowserFactory());
         }
 
         public static IWebDriver Driver
         {
-            get => driver;
-            set => driver = value;
+            get => _driver;
+            set => _driver = value;
         }
 
         public IWebDriver InitBrowser(Browser.Name browser)
@@ -32,27 +30,27 @@ namespace Zialinski_task.WrapperFactory
             switch (browser)
             {
                 case Browser.Name.Firefox:
-                    driver = new FirefoxDriver();
-                    if (!drivers.Keys.Contains(Browser.Name.Firefox))
-                        drivers.Add(Browser.Name.Firefox, Driver);
-                    return driver;
+                    _driver = new FirefoxDriver();
+                    if (!_drivers.Keys.Contains(Browser.Name.Firefox))
+                        _drivers.Add(Browser.Name.Firefox, Driver);
+                    return _driver;
 
                 case Browser.Name.Chrome:
-                    driver = new ChromeDriver();
-                    if(!drivers.Keys.Contains(Browser.Name.Chrome))
-                        drivers.Add(Browser.Name.Chrome, Driver);
-                    return driver;
+                    _driver = new ChromeDriver();
+                    if(!_drivers.Keys.Contains(Browser.Name.Chrome))
+                        _drivers.Add(Browser.Name.Chrome, Driver);
+                    return _driver;
             }
-            return driver;
+            return _driver;
         }
 
         public void CloseAllDrivers()
         {
-            foreach (var key in drivers.Keys)
+            foreach (var key in _drivers.Keys)
             {
-                drivers[key].Quit();
+                _drivers[key].Quit();
             }
-            drivers.Clear();
+            _drivers.Clear();
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Zialinski_task.PageObjects
         }
 
         public static GmailLoginPage GmailLogin => GetPage<GmailLoginPage>();
+        public static GmailPasswordPage GmailPassword => GetPage<GmailPasswordPage>();
         public static GmailInboxPage GmailInbox => GetPage<GmailInboxPage>();
         public static GmailDraftsPage GmailDrafts => GetPage<GmailDraftsPage>();
     }
