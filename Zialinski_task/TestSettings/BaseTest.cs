@@ -19,7 +19,7 @@ namespace Zialinski_task.TestSettings
         public BaseTest(Browser.Name browserName, string testName)
         {
             _browserName = browserName;
-            _browserFactory = BrowserFactory.getInstance();
+            _browserFactory = BrowserFactory.GetInstance();
             _testName = testName;
         }
 
@@ -40,6 +40,7 @@ namespace Zialinski_task.TestSettings
         [SetUp]
         public void Init()
         {
+            Test = Extent.CreateTest("Base SetUp");
             ChooseDriverInstance(_browserName);
             DriverConfiguration.LoadApp(Driver, ConfigurationManager.AppSettings["GmailURL"]);
         }

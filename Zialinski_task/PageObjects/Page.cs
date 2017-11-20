@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
-using Zialinski_task.PageObjects.GmailLogin;
+using Zialinski_task.PageObjects.GmailAuthorization;
 using Zialinski_task.PageObjects.GmailMail;
 using Zialinski_task.WrapperFactory;
 

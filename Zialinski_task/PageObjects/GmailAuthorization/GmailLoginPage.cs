@@ -1,16 +1,13 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
-using System;
-using Zialinski_task.Extensions;
 
-namespace Zialinski_task.PageObjects.GmailLogin
+namespace Zialinski_task.PageObjects.GmailAuthorization
 {
     public class GmailLoginPage
     {
         private WebDriverWait _wait;
-        private const string LoginFieldName = "Login Field";
-        private const string SubmitLoginButtonName = "Submit Login Button";
 
         [FindsBy(How = How.Id, Using = "identifierId")]
         private IWebElement LoginField { get; set; }
@@ -20,17 +17,16 @@ namespace Zialinski_task.PageObjects.GmailLogin
 
         [FindsBy(How = How.Id, Using = "identifierNext")]
         private IWebElement SubmitLoginButton { get; set; }
-
-
+        
         public void InputLogin(string login)
         {
-            LoginField.ClickElement(LoginFieldName);
-            LoginField.InputText(login, LoginFieldName);
+            LoginField.Click();
+            LoginField.SendKeys(login);
         }
 
         public void SubmitLogin()
         {
-            SubmitLoginButton.ClickElement(SubmitLoginButtonName);
+            SubmitLoginButton.Click();
         }
         
         public bool IsLoginErrorLabelPresented(IWebDriver driver)

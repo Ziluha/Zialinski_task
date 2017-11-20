@@ -2,19 +2,15 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
-using Zialinski_task.Extensions;
 
 namespace Zialinski_task.PageObjects.GmailMail
 {
     public class GmailInboxPage
     {
         private WebDriverWait _wait;
-        private const string ComposeButtonName = "Compose Button";
-        private const string MessageSubjectBoxName = "Message Subject Box";
-        private const string DraftsLinkName = "Drafts Link";
         private const string SavedLableXPath = "//td[contains(@class, 'HE')]//span[contains(text(), 'Saved')]";
 
-        [FindsBy(How = How.XPath, Using = "//div[@gh='cm' and @role='button']")]
+        [FindsBy(How = How.XPath, Using = "//div[@jscontroller='DUNnfe']//div[@role='button']")]
         private IWebElement ComposeButton { get; set; }
 
         [FindsBy(How = How.Name, Using = "subjectbox")]
@@ -25,13 +21,13 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         public void ClickComposeButton()
         {
-            ComposeButton.ClickElement(ComposeButtonName);
+            ComposeButton.Click();
         }
 
         public void InputMessageSubject(string messageSubject)
         {
-            MessageSubjectBox.ClickElement(MessageSubjectBoxName);
-            MessageSubjectBox.InputText(messageSubject, MessageSubjectBoxName);
+            MessageSubjectBox.Click();
+            MessageSubjectBox.SendKeys(messageSubject);
         }
 
         public bool IsLoginSucceed(IWebDriver driver)
@@ -63,7 +59,7 @@ namespace Zialinski_task.PageObjects.GmailMail
 
         public void GoToDrafts()
         {
-            DraftsLink.ClickElement(DraftsLinkName);
+            DraftsLink.Click();
         }
     }
 }

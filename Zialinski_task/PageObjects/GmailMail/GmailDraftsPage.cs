@@ -4,7 +4,6 @@ using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
-using Zialinski_task.Extensions;
 
 namespace Zialinski_task.PageObjects.GmailMail
 {
@@ -12,10 +11,8 @@ namespace Zialinski_task.PageObjects.GmailMail
     {
         private WebDriverWait _wait;
         private const string InDraftCheck = "Drafts";
-        private const string DraftCheckBoxName = "Draft Checkbox";
-        private const string DiscardDraftsButtonName = "Discard Drafts Button";
-        
-        [FindsBy(How = How.XPath, Using = "(//div[@role=\'button\']//span[@class=\'ts\'])[last()]")]
+
+        [FindsBy(How = How.XPath, Using = "(//div[@role='button']//span[@class='ts'])[last()]")]
         private IWebElement CountOfDrafts { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//div[@role='main']//span[@class='bog']")]
@@ -48,12 +45,12 @@ namespace Zialinski_task.PageObjects.GmailMail
         public void ChooseFirstDraft(int draftNumber)
         {
             IWebElement checkBox = DraftCheckboxesList[draftNumber];
-            checkBox.ClickElement(DraftCheckBoxName);
+            checkBox.Click();
         }
 
         public void ClickDiscardDraftsButton()
         {
-            DiscardDraftsButton.ClickElement(DiscardDraftsButtonName);
+            DiscardDraftsButton.Click();
         }
 
         public int GetCountOfDrafts()

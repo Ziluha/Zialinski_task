@@ -3,10 +3,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Zialinski_task.Enums;
+using Zialinski_task.Listener;
 
 namespace Zialinski_task.WrapperFactory
 {
-    internal class BrowserFactory
+    internal class BrowserFactory : LogEventListener
     {
         private readonly IDictionary<Browser.Name, IWebDriver> _drivers = new Dictionary<Browser.Name, IWebDriver>();
         private static BrowserFactory _instance;
@@ -14,7 +15,7 @@ namespace Zialinski_task.WrapperFactory
 
         private BrowserFactory() { }
 
-        public static BrowserFactory getInstance()
+        public static BrowserFactory GetInstance()
         {
             return _instance ?? (_instance = new BrowserFactory());
         }
@@ -31,13 +32,15 @@ namespace Zialinski_task.WrapperFactory
             {
                 case Browser.Name.Firefox:
                     _driver = new FirefoxDriver();
+                    InitializeEventFiringWebDriver();
                     if (!_drivers.Keys.Contains(Browser.Name.Firefox))
                         _drivers.Add(Browser.Name.Firefox, Driver);
                     return _driver;
 
                 case Browser.Name.Chrome:
                     _driver = new ChromeDriver();
-                    if(!_drivers.Keys.Contains(Browser.Name.Chrome))
+                    InitializeEventFiringWebDriver();
+                    if (!_drivers.Keys.Contains(Browser.Name.Chrome))
                         _drivers.Add(Browser.Name.Chrome, Driver);
                     return _driver;
             }

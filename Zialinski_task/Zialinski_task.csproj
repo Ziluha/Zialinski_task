@@ -62,7 +62,8 @@
   <ItemGroup>
     <Compile Include="DriverSettings\DriverConfiguration.cs" />
     <Compile Include="Enums\Browser.cs" />
-    <Compile Include="Extensions\ElementExtensions.cs" />
+    <Compile Include="Listener\LogEventListener.cs" />
+    <Compile Include="Listener\EventListenerMethods.cs" />
     <Compile Include="PageObjects\GmailAuthorization\GmailLoginPage.cs" />
     <Compile Include="PageObjects\GmailAuthorization\GmailPasswordPage.cs" />
     <Compile Include="PageObjects\GmailMail\GmailDraftsPage.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="ReportSettings\GetScreenshot.cs" />
     <Compile Include="TestCases\GmailDraftTest.cs" />
     <Compile Include="TestCases\GmailAuthorizationTest.cs" />
-    <Compile Include="TestCases\GmailFailCheckTest.cs" />
+    <Compile Include="TestCases\GmailFailCheck.cs" />
     <Compile Include="TestSettings\BaseTest.cs" />
     <Compile Include="WrapperFactory\BrowserFactory.cs" />
   </ItemGroup>
