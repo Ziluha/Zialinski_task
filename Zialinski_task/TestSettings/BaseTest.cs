@@ -40,7 +40,6 @@ namespace Zialinski_task.TestSettings
         [SetUp]
         public void Init()
         {
-            Test = Extent.CreateTest("Base SetUp");
             ChooseDriverInstance(_browserName);
             DriverConfiguration.LoadApp(Driver, ConfigurationManager.AppSettings["GmailURL"]);
         }

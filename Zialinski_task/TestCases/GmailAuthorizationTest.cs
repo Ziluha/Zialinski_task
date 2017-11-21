@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using AventStack.ExtentReports;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
@@ -21,6 +22,7 @@ namespace Zialinski_task.TestCases
             Page.GmailPassword.InputPassword(ConfigurationManager.AppSettings["ValidPassword"], Driver);
             Page.GmailPassword.SubmitPassword();
             Assert.True(Page.GmailInbox.IsLoginSucceed(Driver), "User was not logged in");
+            Test.Pass("User successfully authorized");
         }
 
         [Test]
@@ -30,6 +32,7 @@ namespace Zialinski_task.TestCases
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();
             Assert.True(Page.GmailLogin.IsLoginErrorLabelPresented(Driver), "Login Error Lable is not presented");
+            Test.Pass("User is not authorized with invalid login");
         }
 
         [Test]
@@ -42,6 +45,7 @@ namespace Zialinski_task.TestCases
             Page.GmailPassword.SubmitPassword();
             Assert.True(Page.GmailPassword.IsPasswordErrorLabelPresented(Driver), 
                 "Password Error Lable is not presented");
+            Test.Pass("User is not authorized with invalid password");
         }
     }
 }

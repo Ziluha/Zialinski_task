@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using AventStack.ExtentReports;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
@@ -15,7 +16,6 @@ namespace Zialinski_task.TestCases
         [SetUp]
         public void SetUpAuth()
         {
-            Test = Extent.CreateTest("Set Up Authorization With Valid Data");
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
             Page.GmailLogin.SubmitLogin();
             Page.GmailPassword.InputPassword(ConfigurationManager.AppSettings["ValidPassword"], Driver);
@@ -33,6 +33,7 @@ namespace Zialinski_task.TestCases
             Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver), "Draft Page is not opened");
             Assert.True(Page.GmailDrafts.IsDraftAdded(ConfigurationManager.AppSettings["TextSample"]),
                 "No message with this subject in drafts");
+            Test.Pass("Message added to drafts");
         }
 
         [Test]
@@ -47,6 +48,7 @@ namespace Zialinski_task.TestCases
             Page.GmailDrafts.ClickDiscardDraftsButton();
             Assert.AreEqual(countOfDraftsAtStart-1, Page.GmailDrafts.GetCountOfDrafts(),
                 "Count of drafts at start and afted discarding doesn't match");
+            Test.Pass("Message deleted from drafts");
         }
     }
 }

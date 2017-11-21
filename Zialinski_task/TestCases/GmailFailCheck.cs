@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using AventStack.ExtentReports;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
@@ -17,7 +18,8 @@ namespace Zialinski_task.TestCases
             Test = Extent.CreateTest(TestName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();
-            Assert.True(Page.GmailPassword.IsLoginApplied(Driver),"Password page is not opened");
+            Assert.True(Page.GmailPassword.IsLoginApplied(Driver), "Password page is not opened");
+            Test.Pass("Fail check is succeed");
         }
     }
 }

@@ -39,7 +39,8 @@ namespace Zialinski_task.ReportSettings
                  string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, testName);
                  Test.Log(Status.Fail, stackTrace + errorMessage);
                  Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));
-             }
+            }
+             Test = null;
          }
         
         public void StopReport()
