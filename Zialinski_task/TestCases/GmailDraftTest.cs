@@ -44,7 +44,7 @@ namespace Zialinski_task.TestCases
             Page.GmailInbox.GoToDrafts();
             Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver),"Draft Page is not opened");
             int countOfDraftsAtStart = Page.GmailDrafts.GetCountOfDrafts();
-            Page.GmailDrafts.ChooseFirstDraft(draftNumber);
+            Page.GmailDrafts.ChooseDraft(draftNumber);
             Page.GmailDrafts.ClickDiscardDraftsButton();
             Assert.AreEqual(countOfDraftsAtStart-1, Page.GmailDrafts.GetCountOfDrafts(),
                 "Count of drafts at start and afted discarding doesn't match");

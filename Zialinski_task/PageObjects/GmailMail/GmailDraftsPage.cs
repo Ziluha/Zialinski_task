@@ -42,7 +42,7 @@ namespace Zialinski_task.PageObjects.GmailMail
             }
         }
 
-        public void ChooseFirstDraft(int draftNumber)
+        public void ChooseDraft(int draftNumber)
         {
             IWebElement checkBox = DraftCheckboxesList[draftNumber];
             checkBox.Click();
