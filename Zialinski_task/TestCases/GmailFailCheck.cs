@@ -11,7 +11,7 @@ namespace Zialinski_task.TestCases
     public class GmailFailCheck : BaseTest
     {
         private const string TestName = "GmailFailCheckTest";
-        public GmailFailCheck() : base(Browser.Name.Chrome, TestName) { }
+        public GmailFailCheck() : base(Browser.Name.Firefox, TestName) { }
 
         [NUnit.Framework.Test]
         public void FailReportCheckTest()

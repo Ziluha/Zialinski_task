@@ -11,7 +11,7 @@ namespace Zialinski_task.TestCases
     public class GmailDraftTest : BaseTest
     {
         private const string TestName = "GmailDraftTest";
-        public GmailDraftTest() : base(Browser.Name.Chrome, TestName) { }
+        public GmailDraftTest() : base(Browser.Name.Firefox, TestName) { }
 
         [SetUp]
         public void SetUpAuth()
