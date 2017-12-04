@@ -11,7 +11,7 @@ namespace Zialinski_task.TestCases
     public class GmailAuthorizationTest : BaseTest
     {
         private const string TestName = "GmailLoginTest";
-        public GmailAuthorizationTest() : base(Browser.Name.Firefox, TestName) { }
+        public GmailAuthorizationTest() : base(Browser.Name.Chrome, TestName) { }
 
         [Test]
         public void AuthorizationWithValidData()
