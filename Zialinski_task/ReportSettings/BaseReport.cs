@@ -40,7 +40,6 @@ namespace Zialinski_task.ReportSettings
                  Test.Log(Status.Fail, stackTrace + errorMessage);
                  Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));
             }
-             Test = null;
          }
         
         public void StopReport()

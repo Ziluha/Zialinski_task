@@ -7,11 +7,13 @@ using Zialinski_task.TestSettings;
 
 namespace Zialinski_task.TestCases
 {
+    [TestFixture]
     public class GmailFailCheck : BaseTest
     {
         private const string TestName = "GmailFailCheckTest";
         public GmailFailCheck() : base(Browser.Name.Chrome, TestName) { }
-        
+
+        [NUnit.Framework.Test]
         public void FailReportCheckTest()
         {
             Test = Extent.CreateTest(TestName);
