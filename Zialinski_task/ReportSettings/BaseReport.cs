@@ -28,19 +28,20 @@ namespace Zialinski_task.ReportSettings
             Extent.AddSystemInfo("By", "Zialinski Ivan");
         }
         
-         public void GetResult(string testName)
-         {
-             var status = TestContext.CurrentContext.Result.Outcome.Status;
-             var stackTrace = "<pre>" + TestContext.CurrentContext.Result.StackTrace + "</pre>";
-             var errorMessage = TestContext.CurrentContext.Result.Message;
+        public void GetResult(string testName)
+        {
+            var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var stackTrace = "<pre>" + TestContext.CurrentContext.Result.StackTrace + "</pre>";
+            var errorMessage = TestContext.CurrentContext.Result.Message;
 
-             if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
-             {
-                 string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, testName);
-                 Test.Log(Status.Fail, stackTrace + errorMessage);
-                 Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));
+            if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, testName);
+                Test.Log(Status.Fail, stackTrace + errorMessage);
+                Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));
             }
-         }
+            Test = null;
+        }
         
         public void StopReport()
         {
