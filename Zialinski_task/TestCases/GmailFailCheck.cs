@@ -16,11 +16,11 @@ namespace Zialinski_task.TestCases
         [NUnit.Framework.Test]
         public void FailReportCheckTest()
         {
-            //Test = Extent.CreateTest(TestName);
+            Test = Extent.CreateTest(TestName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();
             Assert.True(Page.GmailPassword.IsLoginApplied(Driver), "Password page is not opened");
-            //Test.Pass("Fail check is succeed");
+            Test.Pass("Fail check is succeed");
         }
     }
 }

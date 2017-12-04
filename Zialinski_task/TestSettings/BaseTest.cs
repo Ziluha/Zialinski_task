@@ -31,11 +31,11 @@ namespace Zialinski_task.TestSettings
                 Driver = _browserFactory.InitBrowser(Browser.Name.Firefox);
         }
 
-       /* [OneTimeSetUp]
+        [OneTimeSetUp]
         public void InitReport()
         {
             StartReport(_testName);
-        }*/
+        }
 
         [SetUp]
         public void Init()
@@ -47,14 +47,14 @@ namespace Zialinski_task.TestSettings
         [TearDown]
         public void EndTest()
         {
-            //GetResult(_testName);
+            GetResult(_testName);
             _browserFactory.CloseAllDrivers();
         }
 
-        /*[OneTimeTearDown]
+        [OneTimeTearDown]
         public void EndReport()
         {
             StopReport();
-        }*/
+        }
     }
 }
