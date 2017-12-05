@@ -15,7 +15,7 @@ namespace Zialinski_task.TestSettings
         private readonly Browser.Name _browserName;
         private readonly BrowserFactory _browserFactory;
         private readonly string _testName;
-
+        
         public BaseTest(Browser.Name browserName, string testName)
         {
             _browserName = browserName;

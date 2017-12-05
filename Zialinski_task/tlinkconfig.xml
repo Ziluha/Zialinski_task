@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestLinkFixtureConfiguration>
+  <url value="http://localhost:81/testlink/lib/api/xmlrpc/v1/xmlrpc.php" override="yes" />
+  <ProjectName  value="Zialinski_task" />
+  <UserId value="admin"  override="yes" />
+  <TestPlan value="Authomation Testing" />
+  <PlatformName value="Windows 10 x64" />
+  <DevKey value="1ff042360481726da65494f09cf24473" override="yes" />
+
+</TestLinkFixtureConfiguration>

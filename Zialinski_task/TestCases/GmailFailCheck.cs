@@ -1,5 +1,5 @@
 ﻿using System.Configuration;
-using AventStack.ExtentReports;
+using Meyn.TestLink;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
@@ -8,12 +8,15 @@ using Zialinski_task.TestSettings;
 namespace Zialinski_task.TestCases
 {
     [TestFixture]
+    [TestLinkFixture(
+        ConfigFile = "tlinkconfig.xml",
+        TestSuite = "Gmail Fail Check")]
     public class GmailFailCheck : BaseTest
     {
         private const string TestName = "GmailFailCheckTest";
         public GmailFailCheck() : base(Browser.Name.Chrome, TestName) { }
 
-        [NUnit.Framework.Test]
+        [Test]
         public void FailReportCheckTest()
         {
             Test = Extent.CreateTest(TestName);
