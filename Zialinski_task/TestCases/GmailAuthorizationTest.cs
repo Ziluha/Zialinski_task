@@ -1,6 +1,4 @@
 ﻿using System.Configuration;
-using AventStack.ExtentReports;
-using Meyn.TestLink;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
@@ -9,9 +7,6 @@ using Zialinski_task.TestSettings;
 namespace Zialinski_task.TestCases
 {
     [TestFixture]
-    [TestLinkFixture(
-        ConfigFile = "tlinkconfig.xml",
-        TestSuite = "Gmail Authorization")]
     public class GmailAuthorizationTest : BaseTest
     {
         private const string TestName = "GmailLoginTest";

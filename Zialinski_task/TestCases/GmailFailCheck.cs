@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using Meyn.TestLink;
 using NUnit.Framework;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
@@ -8,9 +7,6 @@ using Zialinski_task.TestSettings;
 namespace Zialinski_task.TestCases
 {
     [TestFixture]
-    [TestLinkFixture(
-        ConfigFile = "tlinkconfig.xml",
-        TestSuite = "Gmail Fail Check")]
     public class GmailFailCheck : BaseTest
     {
         private const string TestName = "GmailFailCheckTest";
