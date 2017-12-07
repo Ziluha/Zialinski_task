@@ -1,7 +1,8 @@
 1..6
-ok 1 - Authorization With Invalid Login
-ok 2 - Authorization With Invalid Password
-ok 3 - Authorization With Valid Data
-ok 4 - Add Message To Drafts
-ok 5 - Delete Message From Drafts
-not ok 6 - Delete Message From Drafts
+not ok 1 - FailReportCheckTest
+#   failed test 1 (in System.RuntimeMethodHandle.InvokeMethod)
+   error:   Password page is not opened
+  Expected: True
+  But was:  False
+
+   backtrace:    at Zialinski_task.TestCases.GmailFailCheck.FailReportCheckTest() in D:\Github_Repos\Zialinski_task\Zialinski_task\TestCases\GmailFailCheck.cs:line 24

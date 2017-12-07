@@ -152,11 +152,15 @@ namespace Taps {
 
         void WriteBaseComment(int nr,OrderedDictionary dic) {
             Tw.Write("#   failed test {0} (",nr);
+            CreateTapReport.WriteTapResults($"#   failed test {nr} (");
             var filename=(string)dic["file"];
             if(filename!=null) {
                 Tw.Write("{0} at pos {1} ",filename,MkCoords(dic));
+                CreateTapReport.WriteTapResults($"{filename} at pos {MkCoords(dic)} ");
             }
-            Tw.WriteLine("in {0})",dic["method"]);
+            var d = dic["method"];
+            Tw.WriteLine("in {0})",d);
+            CreateTapReport.WriteTapResults($"in {d})");
         }
 
         static string SafeToString(object s) {
@@ -170,16 +174,26 @@ namespace Taps {
 
         void WriteCmpComment(OrderedDictionary dic,string cmp) {
             Tw.WriteLine("#   '{0}'",ValOrNull(dic,"actual"));
+            CreateTapReport.WriteTapLineResults();
+            CreateTapReport.WriteTapResults($"#   '{ValOrNull(dic, "actual")}'");
             Tw.WriteLine("#   {0}",cmp);
+            CreateTapReport.WriteTapLineResults();
+            CreateTapReport.WriteTapResults($"#   {cmp}");
             Tw.WriteLine("#   '{0}'",ValOrNull(dic,"expected"));
+            CreateTapReport.WriteTapLineResults();
+            CreateTapReport.WriteTapResults($"#   '{ValOrNull(dic, "expected")}'");
         }
 
         void WriteIsVal(OrderedDictionary dic,string label,string key,List<PathEntry> path,int side) {
             var val=dic[key];
             if(path==null || YAMLWriter.IsLeafType(val)) {
                 Tw.WriteLine("#{0,11}: '{1}'",label,SafeToString(val));
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults($"#{label,11}: '{SafeToString(val)}'");
             } else {
                 Tw.WriteLine("#   {0}:",label);
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults($"#   {label}:");
                 var yw=new YAMLWriter(Tw,4,TAP.HorizontalThreshold,BBD);
                 yw.Annotate=(i,n)=> {
                     return GetAnnotation(i,n,path,side,0);
@@ -206,12 +220,15 @@ namespace Taps {
             var msg=(string)dic["message"];
             if(msg!=null) {
                 Tw.WriteLine("#   "+msg);
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults("#   " + msg);
             }
             var backtrace=(string)dic["backtrace"];
             if(backtrace!=null) {
                 string estring=Regex.Replace(backtrace,@"^","# ",RegexOptions.Multiline);
                 Tw.WriteLine(estring);
-
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults(estring);
             }
         }
 
@@ -228,8 +245,10 @@ namespace Taps {
             string todo=TAP.InTodo!=null?"(todo) ":"";
             if(filename!=null) {
                 Tw.Write("{0}({1}): warning T{2}: {3}{4}",filename,MkCoords(dic),nr,name,todo);
+                CreateTapReport.WriteTapResults($"{filename}({MkCoords(dic)}): warning T{nr}: {name}{todo}");
             } else {
                 Tw.Write("T{0} : {1}{2}",nr,name,todo);
+                CreateTapReport.WriteTapResults($"T{nr} : {name}{todo}");
             }
         }
 
@@ -244,14 +263,19 @@ namespace Taps {
 
         void WriteCmpComment(OrderedDictionary dic,string cmp) {
             Tw.WriteLine("'{0}' {1} '{2}'",ValOrNull(dic,"actual"),cmp,ValOrNull(dic,"expected"));
+            CreateTapReport.WriteTapLineResults();
+            CreateTapReport.WriteTapResults($"'{ValOrNull(dic, "actual")}' {cmp} '{ValOrNull(dic, "expected")}'");
         }
 
         void WriteIsVal(bool leaf,OrderedDictionary dic,string label,string key,List<PathEntry> path,int side) {
             var val=dic[key];
             if(leaf) {
                 Tw.Write("{0}: '{1}'",label,SafeToString(val));
+                CreateTapReport.WriteTapResults($"{label}: '{SafeToString(val)}'");
             } else {
                 Tw.WriteLine("  {0}:",label);
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults($"  {label}:");
                 var yw=new YAMLWriter(Tw,4,TAP.HorizontalThreshold,BBD);
                 yw.Annotate=(i,n)=> {
                     return GetAnnotation(i,n,path,side,0);
@@ -262,11 +286,23 @@ namespace Taps {
 
         void WriteIsComment(OrderedDictionary dic,List<PathEntry> path) {
             bool leaf=path==null || (YAMLWriter.IsLeafType(dic["actual"]) && YAMLWriter.IsLeafType(dic["expected"]));
-            if(!leaf) Tw.WriteLine("actual not as expected");
+            if (!leaf)
+            {
+                Tw.WriteLine("actual not as expected");
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults("actual not as expected");
+            }
             WriteIsVal(leaf,dic,"got","actual",path,0);
-            if(leaf) Tw.Write(" ");
+            if(leaf) {
+                Tw.Write(" ");
+                CreateTapReport.WriteTapResults(" ");
+            }
             WriteIsVal(leaf,dic,"expected","expected",path,1);
-            if(leaf) Tw.WriteLine();
+            if (leaf)
+            {
+                Tw.WriteLine();
+                CreateTapReport.WriteTapLineResults();
+            }
         }
 
         public override void WriteComment(int nr,OrderedDictionary dic,List<PathEntry> path,string name) {
@@ -285,16 +321,21 @@ namespace Taps {
             var msg=(string)dic["message"];
             if(msg!=null) {
                 Tw.WriteLine(msg);
-                wrotestuff=true;
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults(msg);
+                wrotestuff =true;
             }
             var backtrace=(string)dic["backtrace"];
             if(backtrace!=null) {
                 string estring=Regex.Replace(backtrace,@"^","  ",RegexOptions.Multiline);
                 Tw.WriteLine(estring);
-                wrotestuff=true;
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults(estring);
+                wrotestuff =true;
             }
             if(!wrotestuff) {
                 Tw.WriteLine();
+                CreateTapReport.WriteTapLineResults();
             }
         }
 
@@ -340,7 +381,7 @@ namespace Taps {
                     dic.Add("message",e.Message);
                     dic.Add("severity","fail");
                     var meth=e.TargetSite;
-                    if(meth!=null) dic.Add("method",string.Format("{0}.{1}",meth.DeclaringType.FullName,meth.Name));
+                    if(meth!=null) dic.Add("method", $"{meth.DeclaringType.FullName}.{meth.Name}");
                     dic.Add("backtrace",e.InnerException==null?e.StackTrace:e.ToString());
                     WriteComment(dic,null,null);
                 }
@@ -544,6 +585,8 @@ namespace Taps {
         static public void Plan(int tests) {
             using(new WithInvariantCulture()) {
                 Console.WriteLine("1..{0}",tests);
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults($"1..{tests}");
             }
             TimerReset();
         }
@@ -696,10 +739,15 @@ namespace Taps {
             using(new WithInvariantCulture()) {
                 lock(WriteLock) {
                     Console.Write("# ");
+                    CreateTapReport.WriteTapResults("# ");
                     if(ps==null || ps.Length==0)  {
                         Console.WriteLine(fmt);
+                        CreateTapReport.WriteTapLineResults();
+                        CreateTapReport.WriteTapResults(fmt);
                     } else {
                         Console.WriteLine(fmt,ps);
+                        CreateTapReport.WriteTapResults(fmt);
+                        CreateTapReport.WriteTapResults(ps.ToString());
                     }
                 }
             }
@@ -720,6 +768,8 @@ namespace Taps {
                         while(n--!=0) {
                             ++Cur;
                             Console.WriteLine("ok {0} # SKIP {1}",Cur,why);
+                            CreateTapReport.WriteTapLineResults();
+                            CreateTapReport.WriteTapResults($"ok {Cur} # SKIP {why}");
                         }
                     }
                 }

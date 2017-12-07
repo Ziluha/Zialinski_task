@@ -13,8 +13,9 @@ namespace Zialinski_task.TapReporting
         
         public static void StartTapReport()
         {
+            int testCount = 6;
             TextWriter tsw = new StreamWriter(ReportPath);
-            tsw.WriteLine("1..6");
+            tsw.WriteLine($"1..{testCount}");
             tsw.Close();
         }
 
