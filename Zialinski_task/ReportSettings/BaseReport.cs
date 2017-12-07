@@ -41,9 +41,16 @@ namespace Zialinski_task.ReportSettings
             {
                 TAP.Fail(TestCaseName);
                 CreateTapReport.WriteTapLineResults();
-                CreateTapReport.WriteTapResults("   error: "+ errorMessage);
+                CreateTapReport.WriteTapResults("   ---");
                 CreateTapReport.WriteTapLineResults();
-                CreateTapReport.WriteTapResults("   backtrace: " + TestContext.CurrentContext.Result.StackTrace);
+                CreateTapReport.WriteTapResults("   message: " +'"'+ errorMessage.Trim()+'"');
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults("   severity: fail");
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults("   backtrace: " +'"'+ TestContext.CurrentContext.Result.StackTrace.Trim() +'"');
+                CreateTapReport.WriteTapLineResults();
+                CreateTapReport.WriteTapResults("   ...");
+                CreateTapReport.WriteTapLineResults();
                 string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, TestCaseName);
                 Test.Log(Status.Fail, stackTrace + errorMessage);
                 Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));

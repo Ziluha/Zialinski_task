@@ -1,8 +1,10 @@
 1..6
 not ok 1 - FailReportCheckTest
 #   failed test 1 (in System.RuntimeMethodHandle.InvokeMethod)
-   error:   Password page is not opened
+   ---
+   message: "Password page is not opened
   Expected: True
-  But was:  False
-
-   backtrace:    at Zialinski_task.TestCases.GmailFailCheck.FailReportCheckTest() in D:\Github_Repos\Zialinski_task\Zialinski_task\TestCases\GmailFailCheck.cs:line 24
+  But was:  False"
+   severity: fail
+   backtrace: "at Zialinski_task.TestCases.GmailFailCheck.FailReportCheckTest() in D:\Github_Repos\Zialinski_task\Zialinski_task\TestCases\GmailFailCheck.cs:line 24"
+   ...
