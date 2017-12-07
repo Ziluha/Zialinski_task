@@ -26,7 +26,7 @@ namespace Zialinski_task.TestCases
         [Test]
         public void AddMessageToDrafts()
         {
-            TestCaseName = "Add Message To Drafts";
+            TestCaseName = "AddMessageToDrafts";
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailInbox.ClickComposeButton();
             Page.GmailInbox.InputMessageSubject(ConfigurationManager.AppSettings["TextSample"]);
@@ -42,7 +42,7 @@ namespace Zialinski_task.TestCases
         [Test]
         public void DeleteMessageFromDrafts()
         {
-            TestCaseName = "Delete Message From Drafts";
+            TestCaseName = "DeleteMessageFromDrafts";
             int draftNumber = 3;
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailInbox.GoToDrafts();

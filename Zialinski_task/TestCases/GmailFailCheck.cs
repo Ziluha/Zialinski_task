@@ -17,7 +17,7 @@ namespace Zialinski_task.TestCases
         [Test]
         public void FailReportCheckTest()
         {
-            TestCaseName = "Fail Report Check Test";
+            TestCaseName = "FailReportCheckTest";
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();

@@ -19,7 +19,7 @@ namespace Zialinski_task.TestCases
         [Test]
         public void AuthorizationWithValidData()
         {
-            TestCaseName = "Authorization With Valid Data";
+            TestCaseName = "AuthorizationWithValidData";
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
             Page.GmailLogin.SubmitLogin();
@@ -33,7 +33,7 @@ namespace Zialinski_task.TestCases
         [Test]
         public void AuthorizationWithInvalidLogin()
         {
-            TestCaseName = "Authorization With Invalid Login";
+            TestCaseName = "AuthorizationWithInvalidLogin";
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();
@@ -45,7 +45,7 @@ namespace Zialinski_task.TestCases
         [Test]
         public void AuthorizationWithInvalidPassword()
         {
-            TestCaseName = "Authorization With Invalid Password";
+            TestCaseName = "AuthorizationWithInvalidPassword";
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
             Page.GmailLogin.SubmitLogin();
