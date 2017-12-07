@@ -1,4 +1,5 @@
-﻿using AventStack.ExtentReports;
+﻿using System.Text;
+using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using Taps;
@@ -43,11 +44,13 @@ namespace Zialinski_task.ReportSettings
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   ---");
                 CreateTapReport.WriteTapLineResults();
-                CreateTapReport.WriteTapResults("   message: " +'"'+ errorMessage.Trim()+'"');
+                CreateTapReport.WriteTapResults("   message: " +'\''+ 
+                    errorMessage.Trim().Replace(System.Environment.NewLine, "")+ '\'');
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   severity: fail");
                 CreateTapReport.WriteTapLineResults();
-                CreateTapReport.WriteTapResults("   backtrace: " +'"'+ TestContext.CurrentContext.Result.StackTrace.Trim() +'"');
+                CreateTapReport.WriteTapResults("   backtrace: " +'\''+ 
+                    TestContext.CurrentContext.Result.StackTrace.Trim().Replace(System.Environment.NewLine, "") + '\'');
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   ...");
                 CreateTapReport.WriteTapLineResults();
