@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Gallio.Common.Reflection.Impl;
 using Zialinski_task.Pathes;
 
 namespace Zialinski_task.TapReporting
@@ -10,9 +11,11 @@ namespace Zialinski_task.TapReporting
         static readonly string ProjectPath = ProjectPathes.GetLocalUri(ActualPath);
         static readonly string ReportPath = ProjectPath + "TAPReporting\\tapresults.tap";
         
-        public static void ClearTapReport()
+        public static void StartTapReport()
         {
-            File.WriteAllText(ReportPath, string.Empty);
+            TextWriter tsw = new StreamWriter(ReportPath);
+            tsw.WriteLine("1..6");
+            tsw.Close();
         }
 
         public static void WriteTapLineResults()

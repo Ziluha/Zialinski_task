@@ -11,6 +11,7 @@ namespace Zialinski_task.ReportSettings
     {
         protected static ExtentReports Extent;
         protected static ExtentTest Test;
+        public static string TestCaseName;
         private static ExtentHtmlReporter _htmlReporter;
         
         public void StartReport(string testName)
@@ -29,7 +30,7 @@ namespace Zialinski_task.ReportSettings
             Extent.AddSystemInfo("By", "Zialinski Ivan");
         }
         
-        public void GetResult(string testName)
+        public void GetResult()
         {
             var status = TestContext.CurrentContext.Result.Outcome.Status;
             var stackTrace = "<pre>" + TestContext.CurrentContext.Result.StackTrace + "</pre>";
@@ -37,8 +38,8 @@ namespace Zialinski_task.ReportSettings
 
             if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                TAP.Fail(testName);
-                string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, testName);
+                TAP.Fail(TestCaseName);
+                string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, TestCaseName);
                 Test.Log(Status.Fail, stackTrace + errorMessage);
                 Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));
             }

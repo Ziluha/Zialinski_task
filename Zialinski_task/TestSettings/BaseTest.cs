@@ -36,7 +36,6 @@ namespace Zialinski_task.TestSettings
         public void InitReport()
         {
             StartReport(_testName);
-            //CreateTapReport.ClearTapReport();
         }
 
         [SetUp]
@@ -50,7 +49,7 @@ namespace Zialinski_task.TestSettings
         [TearDown]
         public void EndTest()
         {
-            GetResult(_testName);
+            GetResult();
             _browserFactory.CloseAllDrivers();
         }
 

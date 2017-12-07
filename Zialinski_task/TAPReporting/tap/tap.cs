@@ -370,6 +370,8 @@ namespace Taps {
         static void ReportOkness(string name,bool ok) {
             TimeSpan time=TimeSpan.MinValue;
             if(Stopwatch!=null) time=Stopwatch.Elapsed;
+            if(Cur == 0)
+                CreateTapReport.StartTapReport();
             ++Cur;
             if (!ok)
             {

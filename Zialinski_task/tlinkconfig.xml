@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<TestLinkFixtureConfiguration>
-  <url value="http://localhost:81/testlink/lib/api/xmlrpc/v1/xmlrpc.php"/>
-  <ProjectName  value="Zialinski_task" />
-  <UserId value="admin"/>
-  <TestPlan value="Zialinski Task Test Plan" />
-  <DevKey value="d1190457825a738bb85779075a665229"/>
-
-</TestLinkFixtureConfiguration>
