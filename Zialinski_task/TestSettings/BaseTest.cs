@@ -4,6 +4,7 @@ using System.Configuration;
 using Zialinski_task.DriverSettings;
 using Zialinski_task.Enums;
 using Zialinski_task.ReportSettings;
+using Zialinski_task.TapReporting;
 using Zialinski_task.WrapperFactory;
 
 namespace Zialinski_task.TestSettings
@@ -35,11 +36,13 @@ namespace Zialinski_task.TestSettings
         public void InitReport()
         {
             StartReport(_testName);
+            //CreateTapReport.ClearTapReport();
         }
 
         [SetUp]
         public void Init()
         {
+            Test = null;
             ChooseDriverInstance(_browserName);
             DriverConfiguration.LoadApp(Driver, ConfigurationManager.AppSettings["GmailURL"]);
         }

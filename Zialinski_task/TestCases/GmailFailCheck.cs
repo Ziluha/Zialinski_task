@@ -1,8 +1,10 @@
 ﻿using System.Configuration;
 using Meyn.TestLink;
 using NUnit.Framework;
+using Taps;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
+using Zialinski_task.TapReporting;
 using Zialinski_task.TestSettings;
 
 namespace Zialinski_task.TestCases
@@ -19,8 +21,8 @@ namespace Zialinski_task.TestCases
             Test = Extent.CreateTest(TestName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();
-            TAP.Core.TAP.Fail("Failed");
             Assert.True(Page.GmailPassword.IsLoginApplied(Driver), "Password page is not opened");
+            TAP.Pass(TestName);
             Test.Pass("Fail check is succeed");
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using Meyn.TestLink;
 using NUnit.Framework;
+using Taps;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
 using Zialinski_task.TestSettings;
@@ -25,7 +26,8 @@ namespace Zialinski_task.TestCases
         [Test]
         public void AddMessageToDrafts()
         {
-            Test = Extent.CreateTest("Add Message To Drafts");
+            string testCaseName = "Add Message To Drafts";
+            Test = Extent.CreateTest(testCaseName);
             Page.GmailInbox.ClickComposeButton();
             Page.GmailInbox.InputMessageSubject(ConfigurationManager.AppSettings["TextSample"]);
             Assert.True(Page.GmailInbox.IsSavedLabelDisplayed(Driver), "Saved Lable is not presented");
@@ -33,14 +35,16 @@ namespace Zialinski_task.TestCases
             Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver), "Draft Page is not opened");
             Assert.True(Page.GmailDrafts.IsDraftAdded(ConfigurationManager.AppSettings["TextSample"]),
                 "No message with this subject in drafts");
+            TAP.Pass(testCaseName);
             Test.Pass("Message added to drafts");
         }
 
         [Test]
         public void DeleteMessageFromDrafts()
         {
+            string testCaseName = "Delete Message From Drafts";
             int draftNumber = 3;
-            Test = Extent.CreateTest("Delete Message From Drafts");
+            Test = Extent.CreateTest(testCaseName);
             Page.GmailInbox.GoToDrafts();
             Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver),"Draft Page is not opened");
             int countOfDraftsAtStart = Page.GmailDrafts.GetCountOfDrafts();
@@ -48,6 +52,7 @@ namespace Zialinski_task.TestCases
             Page.GmailDrafts.ClickDiscardDraftsButton();
             Assert.AreEqual(countOfDraftsAtStart-1, Page.GmailDrafts.GetCountOfDrafts(),
                 "Count of drafts at start and afted discarding doesn't match");
+            TAP.Pass(testCaseName);
             Test.Pass("Message deleted from drafts");
         }
     }

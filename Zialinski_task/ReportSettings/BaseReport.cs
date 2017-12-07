@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
+using Taps;
 using Zialinski_task.Pathes;
 using Zialinski_task.WrapperFactory;
 
@@ -36,11 +37,11 @@ namespace Zialinski_task.ReportSettings
 
             if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
+                TAP.Fail(testName);
                 string screenshotPath = GetScreenshot.Capture(BrowserFactory.Driver, testName);
                 Test.Log(Status.Fail, stackTrace + errorMessage);
                 Test.Log(Status.Fail, "Snapshot below: " + Test.AddScreenCaptureFromPath(screenshotPath));
             }
-            Test = null;
         }
         
         public void StopReport()

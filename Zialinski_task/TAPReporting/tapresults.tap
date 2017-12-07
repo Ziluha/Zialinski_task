@@ -1,0 +1,6 @@
+ok 1 - Authorization With Invalid Login
+ok 2 - Authorization With Invalid Password
+ok 3 - Authorization With Valid Data
+ok 4 - Add Message To Drafts
+ok 5 - Delete Message From Drafts
+not ok 6 - GmailFailCheckTest
