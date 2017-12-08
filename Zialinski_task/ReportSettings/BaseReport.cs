@@ -45,12 +45,12 @@ namespace Zialinski_task.ReportSettings
                 CreateTapReport.WriteTapResults("   ---");
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   message: " +'\''+ 
-                    errorMessage.Trim().Replace(System.Environment.NewLine, "")+ '\'');
+                    errorMessage.Trim().Replace(System.Environment.NewLine, "").Replace("'", "") + '\'');
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   severity: fail");
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   backtrace: " +'\''+ 
-                    TestContext.CurrentContext.Result.StackTrace.Trim().Replace(System.Environment.NewLine, "") + '\'');
+                    TestContext.CurrentContext.Result.StackTrace.Trim().Replace(System.Environment.NewLine, "").Replace("'", "") + '\'');
                 CreateTapReport.WriteTapLineResults();
                 CreateTapReport.WriteTapResults("   ...");
                 CreateTapReport.WriteTapLineResults();
