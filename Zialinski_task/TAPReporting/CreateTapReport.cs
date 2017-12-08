@@ -9,26 +9,30 @@ namespace Zialinski_task.TapReporting
         static readonly string BinPath = ProjectPathes.GetBinPath();
         static readonly string ActualPath = ProjectPathes.GetActualPath(BinPath);
         static readonly string ProjectPath = ProjectPathes.GetLocalUri(ActualPath);
-        static readonly string ReportPath = ProjectPath + "TAPReporting\\tapresults.tap";
-        
+        private static string _reportPath;
+
+        public static void SetTAPReportName(string reportName)
+        {
+            _reportPath = ProjectPath + $"TAPReporting\\{reportName}.tap";
+        }
+
         public static void StartTapReport()
         {
-            int testCount = 6;
-            TextWriter tsw = new StreamWriter(ReportPath);
-            tsw.WriteLine($"1..{testCount}");
+            TextWriter tsw = new StreamWriter(_reportPath);
+            tsw.WriteLine("1..1");
             tsw.Close();
         }
 
         public static void WriteTapLineResults()
         {
-            TextWriter tsw = new StreamWriter(ReportPath, true);
+            TextWriter tsw = new StreamWriter(_reportPath, true);
             tsw.WriteLine();
             tsw.Close();
         }
 
         public static void WriteTapResults(string tapRes)
         {
-            TextWriter tsw = new StreamWriter(ReportPath, true);
+            TextWriter tsw = new StreamWriter(_reportPath, true);
             tsw.Write(tapRes);
             tsw.Close();
         }

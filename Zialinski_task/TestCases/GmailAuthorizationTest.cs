@@ -20,6 +20,7 @@ namespace Zialinski_task.TestCases
         public void AuthorizationWithValidData()
         {
             TestCaseName = "AuthorizationWithValidData";
+            CreateTapReport.SetTAPReportName(TestCaseName);
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
             Page.GmailLogin.SubmitLogin();
@@ -34,6 +35,7 @@ namespace Zialinski_task.TestCases
         public void AuthorizationWithInvalidLogin()
         {
             TestCaseName = "AuthorizationWithInvalidLogin";
+            CreateTapReport.SetTAPReportName(TestCaseName);
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();
@@ -46,6 +48,7 @@ namespace Zialinski_task.TestCases
         public void AuthorizationWithInvalidPassword()
         {
             TestCaseName = "AuthorizationWithInvalidPassword";
+            CreateTapReport.SetTAPReportName(TestCaseName);
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["ValidLogin"]);
             Page.GmailLogin.SubmitLogin();

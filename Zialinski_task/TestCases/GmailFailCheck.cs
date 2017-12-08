@@ -4,6 +4,7 @@ using Taps;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
 using Zialinski_task.ReportSettings;
+using Zialinski_task.TapReporting;
 using Zialinski_task.TestSettings;
 
 namespace Zialinski_task.TestCases
@@ -18,6 +19,7 @@ namespace Zialinski_task.TestCases
         public void FailReportCheckTest()
         {
             TestCaseName = "FailReportCheckTest";
+            CreateTapReport.SetTAPReportName(TestCaseName);
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailLogin.InputLogin(ConfigurationManager.AppSettings["InvalidLogin"]);
             Page.GmailLogin.SubmitLogin();

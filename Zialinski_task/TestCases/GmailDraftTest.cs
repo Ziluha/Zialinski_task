@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Taps;
 using Zialinski_task.Enums;
 using Zialinski_task.PageObjects;
+using Zialinski_task.TapReporting;
 using Zialinski_task.TestSettings;
 
 namespace Zialinski_task.TestCases
@@ -27,6 +28,7 @@ namespace Zialinski_task.TestCases
         public void AddMessageToDrafts()
         {
             TestCaseName = "AddMessageToDrafts";
+            CreateTapReport.SetTAPReportName(TestCaseName);
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailInbox.ClickComposeButton();
             Page.GmailInbox.InputMessageSubject(ConfigurationManager.AppSettings["TextSample"]);
@@ -42,8 +44,9 @@ namespace Zialinski_task.TestCases
         [Test]
         public void DeleteMessageFromDrafts()
         {
-            TestCaseName = "DeleteMessageFromDrafts";
             int draftNumber = 3;
+            TestCaseName = "DeleteMessageFromDrafts";
+            CreateTapReport.SetTAPReportName(TestCaseName);
             Test = Extent.CreateTest(TestCaseName);
             Page.GmailInbox.GoToDrafts();
             Assert.True(Page.GmailDrafts.IsDraftPageOpened(Driver),"Draft Page is not opened");
