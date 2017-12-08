@@ -344,7 +344,7 @@ namespace Taps {
     
     public class TAP {
 
-        static int Cur;
+        static int Cur = 1;
         static object WriteLock=new object();
         [ThreadStatic] static Stopwatch Stopwatch;
 
@@ -411,9 +411,9 @@ namespace Taps {
         static void ReportOkness(string name,bool ok) {
             TimeSpan time=TimeSpan.MinValue;
             if(Stopwatch!=null) time=Stopwatch.Elapsed;
-            if(Cur == 0)
+            /*if(Cur == 0)
                 CreateTapReport.StartTapReport();
-            ++Cur;
+            ++Cur;*/
             if (!ok)
             {
                 Console.Write("not ");

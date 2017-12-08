@@ -14,6 +14,7 @@ namespace Zialinski_task.TapReporting
         public static void SetTAPReportName(string reportName)
         {
             _reportPath = ProjectPath + $"TAPReporting\\{reportName}.tap";
+            StartTapReport();
         }
 
         public static void StartTapReport()
